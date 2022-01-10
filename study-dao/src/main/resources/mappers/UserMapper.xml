@@ -22,4 +22,25 @@
             SELECT LAST_INSERT_ID() AS ID
         </selectKey>
     </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO users(name, age) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.name}, #{item.age})
+        </foreach>
+    </insert>
+
+    <insert id="insertByMap" parameterType="hashmap">
+        INSERT INTO users(name, age) VALUES (#{name}, #{age})
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <insert id="insertByParams">
+        INSERT INTO users(name, age) VALUES (#{name}, #{age})
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
 </mapper>
